@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.fredyblog.blog.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="top.fredyblog.blog.model.entity.Message">
+    <id column="message_id" jdbcType="INTEGER" property="messageId" />
+    <result column="message_user_id" jdbcType="INTEGER" property="messageUserId" />
+    <result column="message_nickname" jdbcType="VARCHAR" property="messageNickname" />
+    <result column="replied_user_id" jdbcType="INTEGER" property="repliedUserId" />
+    <result column="replied_user_nickname" jdbcType="VARCHAR" property="repliedUserNickname" />
+    <result column="message_email" jdbcType="VARCHAR" property="messageEmail" />
+    <result column="message_level" jdbcType="CHAR" property="messageLevel" />
+    <result column="parent_message_id" jdbcType="INTEGER" property="parentMessageId" />
+    <result column="create_time" jdbcType="OTHER" property="createTime" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler" />
+    <result column="update_time" jdbcType="OTHER" property="updateTime" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
+    <result column="del_time" jdbcType="OTHER" property="delTime" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="top.fredyblog.blog.model.entity.Message">
+    <result column="message_content" jdbcType="LONGVARCHAR" property="messageContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.createTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.updateTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.delTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.createTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.updateTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.delTimeCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler} and #{criterion.secondValue,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    message_id, message_user_id, message_nickname, replied_user_id, replied_user_nickname, 
+    message_email, message_level, parent_message_id, create_time, update_time, del_flag, 
+    del_time
+  </sql>
+  <sql id="Blob_Column_List">
+    message_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="top.fredyblog.blog.model.entity.MessageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="top.fredyblog.blog.model.entity.MessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.fredyblog.blog.model.entity.MessageExample">
+    delete from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.fredyblog.blog.model.entity.Message">
+    insert into message (message_id, message_user_id, message_nickname, 
+      replied_user_id, replied_user_nickname, message_email, 
+      message_level, parent_message_id, create_time, 
+      update_time, 
+      del_flag, del_time, 
+      message_content)
+    values (#{messageId,jdbcType=INTEGER}, #{messageUserId,jdbcType=INTEGER}, #{messageNickname,jdbcType=VARCHAR}, 
+      #{repliedUserId,jdbcType=INTEGER}, #{repliedUserNickname,jdbcType=VARCHAR}, #{messageEmail,jdbcType=VARCHAR}, 
+      #{messageLevel,jdbcType=CHAR}, #{parentMessageId,jdbcType=INTEGER}, #{createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}, 
+      #{updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}, 
+      #{delFlag,jdbcType=BIT}, #{delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}, 
+      #{messageContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="top.fredyblog.blog.model.entity.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="messageUserId != null">
+        message_user_id,
+      </if>
+      <if test="messageNickname != null">
+        message_nickname,
+      </if>
+      <if test="repliedUserId != null">
+        replied_user_id,
+      </if>
+      <if test="repliedUserNickname != null">
+        replied_user_nickname,
+      </if>
+      <if test="messageEmail != null">
+        message_email,
+      </if>
+      <if test="messageLevel != null">
+        message_level,
+      </if>
+      <if test="parentMessageId != null">
+        parent_message_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="delTime != null">
+        del_time,
+      </if>
+      <if test="messageContent != null">
+        message_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="messageUserId != null">
+        #{messageUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messageNickname != null">
+        #{messageNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="repliedUserId != null">
+        #{repliedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="repliedUserNickname != null">
+        #{repliedUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="messageEmail != null">
+        #{messageEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="messageLevel != null">
+        #{messageLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentMessageId != null">
+        #{parentMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="delTime != null">
+        #{delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="messageContent != null">
+        #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.fredyblog.blog.model.entity.MessageExample" resultType="java.lang.Long">
+    select count(*) from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update message
+    <set>
+      <if test="record.messageId != null">
+        message_id = #{record.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageUserId != null">
+        message_user_id = #{record.messageUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.messageNickname != null">
+        message_nickname = #{record.messageNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repliedUserId != null">
+        replied_user_id = #{record.repliedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.repliedUserNickname != null">
+        replied_user_nickname = #{record.repliedUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageEmail != null">
+        message_email = #{record.messageEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageLevel != null">
+        message_level = #{record.messageLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.parentMessageId != null">
+        parent_message_id = #{record.parentMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=BIT},
+      </if>
+      <if test="record.delTime != null">
+        del_time = #{record.delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="record.messageContent != null">
+        message_content = #{record.messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update message
+    set message_id = #{record.messageId,jdbcType=INTEGER},
+      message_user_id = #{record.messageUserId,jdbcType=INTEGER},
+      message_nickname = #{record.messageNickname,jdbcType=VARCHAR},
+      replied_user_id = #{record.repliedUserId,jdbcType=INTEGER},
+      replied_user_nickname = #{record.repliedUserNickname,jdbcType=VARCHAR},
+      message_email = #{record.messageEmail,jdbcType=VARCHAR},
+      message_level = #{record.messageLevel,jdbcType=CHAR},
+      parent_message_id = #{record.parentMessageId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      update_time = #{record.updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      del_flag = #{record.delFlag,jdbcType=BIT},
+      del_time = #{record.delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      message_content = #{record.messageContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update message
+    set message_id = #{record.messageId,jdbcType=INTEGER},
+      message_user_id = #{record.messageUserId,jdbcType=INTEGER},
+      message_nickname = #{record.messageNickname,jdbcType=VARCHAR},
+      replied_user_id = #{record.repliedUserId,jdbcType=INTEGER},
+      replied_user_nickname = #{record.repliedUserNickname,jdbcType=VARCHAR},
+      message_email = #{record.messageEmail,jdbcType=VARCHAR},
+      message_level = #{record.messageLevel,jdbcType=CHAR},
+      parent_message_id = #{record.parentMessageId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      update_time = #{record.updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      del_flag = #{record.delFlag,jdbcType=BIT},
+      del_time = #{record.delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.fredyblog.blog.model.entity.Message">
+    update message
+    <set>
+      <if test="messageUserId != null">
+        message_user_id = #{messageUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messageNickname != null">
+        message_nickname = #{messageNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="repliedUserId != null">
+        replied_user_id = #{repliedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="repliedUserNickname != null">
+        replied_user_nickname = #{repliedUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="messageEmail != null">
+        message_email = #{messageEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="messageLevel != null">
+        message_level = #{messageLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentMessageId != null">
+        parent_message_id = #{parentMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=BIT},
+      </if>
+      <if test="delTime != null">
+        del_time = #{delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      </if>
+      <if test="messageContent != null">
+        message_content = #{messageContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="top.fredyblog.blog.model.entity.Message">
+    update message
+    set message_user_id = #{messageUserId,jdbcType=INTEGER},
+      message_nickname = #{messageNickname,jdbcType=VARCHAR},
+      replied_user_id = #{repliedUserId,jdbcType=INTEGER},
+      replied_user_nickname = #{repliedUserNickname,jdbcType=VARCHAR},
+      message_email = #{messageEmail,jdbcType=VARCHAR},
+      message_level = #{messageLevel,jdbcType=CHAR},
+      parent_message_id = #{parentMessageId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      update_time = #{updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      del_flag = #{delFlag,jdbcType=BIT},
+      del_time = #{delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      message_content = #{messageContent,jdbcType=LONGVARCHAR}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.fredyblog.blog.model.entity.Message">
+    update message
+    set message_user_id = #{messageUserId,jdbcType=INTEGER},
+      message_nickname = #{messageNickname,jdbcType=VARCHAR},
+      replied_user_id = #{repliedUserId,jdbcType=INTEGER},
+      replied_user_nickname = #{repliedUserNickname,jdbcType=VARCHAR},
+      message_email = #{messageEmail,jdbcType=VARCHAR},
+      message_level = #{messageLevel,jdbcType=CHAR},
+      parent_message_id = #{parentMessageId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      update_time = #{updateTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler},
+      del_flag = #{delFlag,jdbcType=BIT},
+      del_time = #{delTime,jdbcType=OTHER,typeHandler=org.apache.ibatis.type.LocalDateTimeTypeHandler}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="top.fredyblog.blog.model.entity.MessageExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="top.fredyblog.blog.model.entity.MessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

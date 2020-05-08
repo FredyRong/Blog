@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.fredyblog.blog.mapper.BlogTagExtendMapper">
+    <resultMap id="TopTagResultMap" extends="top.fredyblog.blog.mapper.TagMapper.BaseResultMap" type="top.fredyblog.blog.model.pojo.TopTag">
+    </resultMap>
+
+    <select id="getTopTagList" parameterType="java.lang.Integer" resultMap="TopTagResultMap">
+        SELECT a.tag_id,
+               b.tag_name,
+               COUNT(a.blog_id) blogNums
+        FROM blog_tag a,
+             tag b
+        WHERE a.tag_id = b.tag_id
+        GROUP BY a.tag_id,
+                 b.tag_name
+        ORDER BY blogNums DESC,
+                 a.tag_id ASC
+        LIMIT #{topSize,jdbcType=INTEGER}
+    </select>
+</mapper>
