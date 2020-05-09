@@ -186,9 +186,6 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog findOne(Integer blogId) {
         Blog blog = blogMapper.selectByPrimaryKey(blogId);
-        if (blog == null) {
-            throw new CustomizeException(CustomizeErrorCode.BLOG_NOT_FOUND);
-        }
         return blog;
     }
 

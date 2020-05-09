@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import top.fredyblog.blog.exception.CustomizeErrorCode;
+import top.fredyblog.blog.exception.CustomizeException;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.Type;
 import top.fredyblog.blog.model.entity.TypeExample;
@@ -15,6 +17,9 @@ import top.fredyblog.blog.utils.ResultGenerator;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 管理员：类型管理
@@ -48,6 +53,27 @@ public class AdminTypeController {
     }
 
     /**
+     * 获取全部类型(map)
+     * @return
+     */
+    @ApiOperation("获取全部类型(map)")
+    @GetMapping("getTypesMap")
+    public RestResult typesMap(){
+        List<Type> typeList = typeService.getAll();
+        return ResultGenerator.getSuccessResult(typeList.stream().collect(Collectors.toMap(Type::getTypeId, Type::getTypeName, (key1, key2) -> key2)));
+    }
+
+    /**
+     * 获取全部类型(list)
+     * @return
+     */
+    @ApiOperation("获取全部类型(list)")
+    @GetMapping("getTypesList")
+    public RestResult typesList(){
+        return ResultGenerator.getSuccessResult(typeService.getAll());
+    }
+
+    /**
      * 类型单个查询
      * @param id
      * @return
@@ -56,6 +82,9 @@ public class AdminTypeController {
     @GetMapping("/type/{id}")
     public RestResult getType(@PathVariable Integer id){
         Type type = typeService.findOne(id);
+        if (type == null) {
+            throw new CustomizeException(CustomizeErrorCode.TYPE_NOT_FOUND);
+        }
         return ResultGenerator.getSuccessResult(type);
     }
 
@@ -73,11 +102,11 @@ public class AdminTypeController {
             return ResultGenerator.getFailResult("不能添加重复类型");
         }
         if(result.hasErrors()){
-            StringBuilder errorMessage = new StringBuilder("");
+            List<String> errorMessage = new ArrayList<>();
             for (FieldError fieldError : result.getFieldErrors()) {
-                errorMessage.append(fieldError.getDefaultMessage() + ",");
+                errorMessage.add(fieldError.getDefaultMessage() + ",");
             }
-            return ResultGenerator.getFailResult(errorMessage.deleteCharAt(errorMessage.length()-1).toString());
+            return ResultGenerator.getFailResult("validation error", errorMessage);
         }
         typeService.saveType(type);
         return ResultGenerator.getSuccessResult();

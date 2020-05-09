@@ -72,11 +72,7 @@ public class TagServiceImpl implements TagService {
      */
     @Override
     public Tag findOne(Integer id) {
-        Tag tag = tagMapper.selectByPrimaryKey(id);
-        if(tag == null){
-            throw new CustomizeException(CustomizeErrorCode.TAG_NOT_FOUND);
-        }
-        return tag;
+        return tagMapper.selectByPrimaryKey(id);
     }
 
     /**

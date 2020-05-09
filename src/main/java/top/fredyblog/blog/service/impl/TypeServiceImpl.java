@@ -71,11 +71,7 @@ public class TypeServiceImpl implements TypeService {
      */
     @Override
     public Type findOne(Integer id) {
-        Type type = typeMapper.selectByPrimaryKey(id);
-        if (type == null) {
-            throw new CustomizeException(CustomizeErrorCode.TYPE_NOT_FOUND);
-        }
-        return type;
+        return typeMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -88,10 +84,7 @@ public class TypeServiceImpl implements TypeService {
         TypeExample typeExample = new TypeExample();
         typeExample.createCriteria().andTypeNameEqualTo(typeName);
         List<Type> list = typeMapper.selectByExample(typeExample);
-        if(CollectionUtils.isEmpty(list)){
-            throw new CustomizeException(CustomizeErrorCode.TYPE_NOT_FOUND);
-        }
-        return list.get(0);
+        return CollectionUtils.isEmpty(list) ? null : list.get(0);
     }
 
     /**

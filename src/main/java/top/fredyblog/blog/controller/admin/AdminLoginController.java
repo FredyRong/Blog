@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fredyblog.blog.constant.UserRole;
+import top.fredyblog.blog.exception.CustomizeErrorCode;
+import top.fredyblog.blog.exception.CustomizeException;
 import top.fredyblog.blog.model.dto.LoginDTO;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.User;
@@ -41,6 +43,9 @@ public class AdminLoginController {
     public RestResult login(LoginDTO loginDTO, HttpSession session, HttpServletRequest request){
         loginDTO.setUserRole(UserRole.USER_ROLE_SUPER_ADMIN.getCode());
         User user = userService.checkUser(loginDTO);
+        if(user == null){
+            throw new CustomizeException(CustomizeErrorCode.USER_NOT_FOUND);
+        }
         userService.updateLoginInfo(user, request.getHeader("X-Real-IP"));
         user.setPassword(null);
         session.setAttribute("user", user);

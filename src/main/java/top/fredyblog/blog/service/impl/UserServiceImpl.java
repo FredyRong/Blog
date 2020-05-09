@@ -84,10 +84,7 @@ public class UserServiceImpl implements UserService {
             criteria.andUserRoleIn(Arrays.asList(UserRole.USER_ROLE_SUPER_ADMIN.getCode(), UserRole.USER_ROLE_GENERAL_ADMIN.getCode()));
         }
         List<User> users = userMapper.selectByExample(userExample);
-        if(CollectionUtils.isEmpty(users)){
-            throw new CustomizeException(CustomizeErrorCode.USER_NOT_FOUND);
-        }
-        return users.get(0);
+        return CollectionUtils.isEmpty(users) ? null : users.get(0);
     }
 
     /**

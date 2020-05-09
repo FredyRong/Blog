@@ -7,14 +7,20 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import top.fredyblog.blog.exception.CustomizeErrorCode;
+import top.fredyblog.blog.exception.CustomizeException;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.Tag;
 import top.fredyblog.blog.model.entity.TagExample;
+import top.fredyblog.blog.model.entity.Type;
 import top.fredyblog.blog.service.TagService;
 import top.fredyblog.blog.utils.ResultGenerator;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 管理员：标签管理
@@ -47,6 +53,27 @@ public class AdminTagController {
     }
 
     /**
+     * 获取全部标签(map)
+     * @return
+     */
+    @ApiOperation("获取全部标签(map)")
+    @GetMapping("getTagsMap")
+    public RestResult tagsMap(){
+        List<Tag> tagList = tagService.getAll();
+        return ResultGenerator.getSuccessResult(tagList.stream().collect(Collectors.toMap(Tag::getTagId, Tag::getTagName, (key1, key2) -> key2)));
+    }
+
+    /**
+     * 获取全部标签(list)
+     * @return
+     */
+    @ApiOperation("获取全部标签(list)")
+    @GetMapping("getTagsList")
+    public RestResult tagsList(){
+        return ResultGenerator.getSuccessResult(tagService.getAll());
+    }
+
+    /**
      * 标签单个查询
      * @param id
      * @return
@@ -55,6 +82,9 @@ public class AdminTagController {
     @GetMapping("/tag/{id}")
     public RestResult getTag(@PathVariable Integer id){
         Tag tag = tagService.findOne(id);
+        if(tag == null){
+            throw new CustomizeException(CustomizeErrorCode.TAG_NOT_FOUND);
+        }
         return ResultGenerator.getSuccessResult(tag);
     }
 
@@ -69,14 +99,14 @@ public class AdminTagController {
     public RestResult postTag(@Valid Tag tag, BindingResult result){
         Tag tagByName = tagService.findTagByName(tag.getTagName());
         if (tagByName != null) {
-            return ResultGenerator.getFailResult("不能添加重复标签");
+            throw new CustomizeException(CustomizeErrorCode.TAG_EXISTED);
         }
         if(result.hasErrors()){
-            StringBuilder errorMessage = new StringBuilder("");
+            List<String> errorMessage = new ArrayList<>();
             for (FieldError fieldError : result.getFieldErrors()) {
-                errorMessage.append(fieldError.getDefaultMessage() + ",");
+                errorMessage.add(fieldError.getDefaultMessage() + ",");
             }
-            return ResultGenerator.getFailResult(errorMessage.deleteCharAt(errorMessage.length()-1).toString());
+            return ResultGenerator.getFailResult("validation error", errorMessage);
         }
         tagService.saveTag(tag);
         return ResultGenerator.getSuccessResult();
