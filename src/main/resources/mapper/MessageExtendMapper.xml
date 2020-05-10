@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.fredyblog.blog.mapper.MessageExtendMapper">
+
+    <resultMap extends="top.fredyblog.blog.mapper.MessageMapper.ResultMapWithBLOBs" id="BaseResultMap"
+               type="top.fredyblog.blog.pojo.MessageExtend">
+    </resultMap>
+
+    <!--分页获取留言信箱列表-->
+    <select id="page" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="top.fredyblog.blog.mapper.MessageMapper.Base_Column_List"/>
+        ,
+        <include refid="top.fredyblog.blog.mapper.MessageMapper.Blob_Column_List"/>
+        from message
+        <if test="_parameter != null">
+            <include refid="top.fredyblog.blog.mapper.MessageMapper.Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+</mapper>

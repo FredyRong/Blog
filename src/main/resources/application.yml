@@ -20,6 +20,42 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 300
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 100   #连接池最大连接数
+    packages:
+      trust-all: true
+  jms:
+    pub-sub-domain: false
+  mail:
+    host: smtp.qq.com
+    username: 419089660@qq.com
+    default-encoding: utf-8
+    properties:
+      smtp:
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+        ssl:
+          trust: smtp.qq.com
+        auth: true
+        sockerFactory:
+          class: javax.net.ssl.SSLSocketFactory
+          port: 465
+        starttls:
+          enable: true
+          required: true
+
+queueName:
+  meaage: blog-message-queue
+    reply: blog-message-reply-queue
+  comment: blog-comment-queue
+  reply: blog-reply-queue
+
 
 mybatis:
   type-aliases-package: top.fredyblog.log.mapper
