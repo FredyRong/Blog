@@ -32,7 +32,14 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     MESSAGE_DELETE_FAILED(6003, "留言删除失败"),
     MESSAGE_UPDATE_FAILED(6004, "留言更新失败"),
     MESSAGE_INSERT_FAILED(6005, "留言插入失败"),
-    MAIL_ILLEGAL(7001, "邮箱不合法")
+    MAIL_ILLEGAL(7001, "邮箱不合法"),
+    COMMENT_INSERT_FAILED(8001,"评论插入失败"),
+    REPLY_INSERT_FAILED(8002,"回复插入失败"),
+    ANNC_NOT_FOUND(9001, "公告不存在"),
+    ANNC_EXISTED(9002, "公告已存在"),
+    ANNC_DELETE_FAILED(9003, "公告删除失败"),
+    ANNC_UPDATE_FAILED(9004, "公告更新失败"),
+    ANNC_INSERT_FAILED(9005, "公告插入失败"),
     ;
 
     private Integer code;
