@@ -21,7 +21,7 @@ public class ActiveMQConfig {
     private String messageQueueName;
 
     //留言回复队列名
-    @Value("${queueName.message.reply}")
+    @Value("${queueName.messageReply}")
     private String messageReplyQueueName;
 
     //评论队列名

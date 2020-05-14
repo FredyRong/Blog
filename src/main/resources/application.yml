@@ -51,8 +51,8 @@ spring:
           required: true
 
 queueName:
-  meaage: blog-message-queue
-    reply: blog-message-reply-queue
+  message: blog-message-queue
+  messageReply: blog-message-reply-queue
   comment: blog-comment-queue
   reply: blog-reply-queue
 

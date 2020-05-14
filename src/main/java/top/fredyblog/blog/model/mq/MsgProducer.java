@@ -1,10 +1,13 @@
 package top.fredyblog.blog.model.mq;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 
@@ -16,8 +19,25 @@ import javax.jms.Queue;
 @Component
 @Log4j2
 public class MsgProducer {
-    @Resource
+//    @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
+    @Bean
+    ConnectionFactory connectionFactory() {
+        return new ActiveMQConnectionFactory();
+    }
+
+    @Bean
+    JmsTemplate jmsTemplate(ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
+        jmsTemplate.setPriority(999);
+        return jmsTemplate;
+    }
+
+    @Bean(value="jmsMessagingTemplate")
+    JmsMessagingTemplate jmsMessagingTemplate(JmsTemplate jmsTemplate) {
+        JmsMessagingTemplate messagingTemplate = new JmsMessagingTemplate(jmsTemplate);
+        return messagingTemplate;
+    }
 
     /**
      * 功能描述：生产消息

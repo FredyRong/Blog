@@ -12,7 +12,6 @@ import top.fredyblog.blog.service.UserService;
 import top.fredyblog.blog.utils.ResultGenerator;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("获取用户分页信息")
-    @RequestMapping("/users")
+    @GetMapping("/users")
     public RestResult users(@RequestParam(defaultValue = "1") Integer pageNum,
                             @RequestParam(defaultValue = "10") Integer pageSize){
         UserExample userExample = new UserExample();
@@ -62,7 +61,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("获取用户角色集合")
-    @RequestMapping("/userRoleSet")
+    @GetMapping("/userRoleSet")
     public RestResult userRoleSet(){
         return ResultGenerator.getSuccessResult(userRoleSet);
     }
@@ -72,7 +71,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("获取用户状态集合")
-    @RequestMapping("/userStatusSet")
+    @GetMapping("/userStatusSet")
     public RestResult userStatusSet(){
         return ResultGenerator.getSuccessResult(userStatusSet);
     }
@@ -83,7 +82,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("封禁用户")
-    @GetMapping("/users/ban/{id}")
+    @PutMapping("/users/ban/{id}")
     public RestResult banUser(@PathVariable Integer id){
         userService.banUser(id);
         return ResultGenerator.getSuccessResult();
@@ -95,7 +94,7 @@ public class AdminUserController {
      * @return
      */
     @ApiOperation("封禁用户")
-    @GetMapping("/users/unBlock/{id}")
+    @PutMapping("/users/unBlock/{id}")
     public RestResult unBlockUser(@PathVariable Integer id){
         userService.unblockUser(id);
         return ResultGenerator.getSuccessResult();

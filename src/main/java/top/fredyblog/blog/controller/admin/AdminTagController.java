@@ -12,7 +12,6 @@ import top.fredyblog.blog.exception.CustomizeException;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.Tag;
 import top.fredyblog.blog.model.entity.TagExample;
-import top.fredyblog.blog.model.entity.Type;
 import top.fredyblog.blog.service.TagService;
 import top.fredyblog.blog.utils.ResultGenerator;
 
@@ -36,7 +35,7 @@ public class AdminTagController {
     private TagService tagService;
 
     /**
-     * 标签分页查询
+     * 功能描述：标签分页查询
      * @param pageNum
      * @param pageSize
      * @return
@@ -53,7 +52,7 @@ public class AdminTagController {
     }
 
     /**
-     * 获取全部标签(map)
+     * 功能描述：获取全部标签(map)
      * @return
      */
     @ApiOperation("获取全部标签(map)")
@@ -64,7 +63,7 @@ public class AdminTagController {
     }
 
     /**
-     * 获取全部标签(list)
+     * 功能描述：获取全部标签(list)
      * @return
      */
     @ApiOperation("获取全部标签(list)")
@@ -74,7 +73,7 @@ public class AdminTagController {
     }
 
     /**
-     * 标签单个查询
+     * 功能描述：标签单个查询
      * @param id
      * @return
      */
@@ -89,7 +88,7 @@ public class AdminTagController {
     }
 
     /**
-     * 提交标签信息
+     * 功能描述：提交标签信息
      * @param tag
      * @param result
      * @return
@@ -113,7 +112,7 @@ public class AdminTagController {
     }
 
     /**
-     * 更新标签信息
+     * 功能描述：更新标签信息
      * @param id
      * @param tag
      * @return
@@ -127,7 +126,7 @@ public class AdminTagController {
     }
 
     /**
-     * 删除标签信息
+     * 功能描述：删除标签信息
      * @param id
      * @return
      */

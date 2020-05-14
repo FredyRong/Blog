@@ -35,12 +35,11 @@ public class AdminTypeController {
     private TypeService typeService;
 
     /**
-     * 类型分页查询
+     * 功能描述：类型分页查询
      * @param pageNum
      * @param pageSize
      * @return
      */
-
     @ApiOperation("类型分页查询")
     @GetMapping("/types")
     public RestResult types(@RequestParam(defaultValue = "1") Integer pageNum,
@@ -53,7 +52,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 获取全部类型(map)
+     * 功能描述：获取全部类型(map)
      * @return
      */
     @ApiOperation("获取全部类型(map)")
@@ -64,7 +63,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 获取全部类型(list)
+     * 功能描述：获取全部类型(list)
      * @return
      */
     @ApiOperation("获取全部类型(list)")
@@ -74,7 +73,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 类型单个查询
+     * 功能描述：类型单个查询
      * @param id
      * @return
      */
@@ -89,7 +88,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 提交类型信息
+     * 功能描述：提交类型信息
      * @param type
      * @param result
      * @return
@@ -113,7 +112,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 更新类型信息
+     * 功能描述：更新类型信息
      * @param id
      * @param type
      * @return
@@ -127,7 +126,7 @@ public class AdminTypeController {
     }
 
     /**
-     * 删除类型信息
+     * 功能描述：删除类型信息
      * @param id
      * @return
      */

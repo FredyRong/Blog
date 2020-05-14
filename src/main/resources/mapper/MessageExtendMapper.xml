@@ -3,7 +3,7 @@
 <mapper namespace="top.fredyblog.blog.mapper.MessageExtendMapper">
 
     <resultMap extends="top.fredyblog.blog.mapper.MessageMapper.ResultMapWithBLOBs" id="BaseResultMap"
-               type="top.fredyblog.blog.pojo.MessageExtend">
+               type="top.fredyblog.blog.model.pojo.MessageExtend">
     </resultMap>
 
     <!--分页获取留言信箱列表-->

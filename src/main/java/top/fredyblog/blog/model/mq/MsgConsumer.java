@@ -65,7 +65,7 @@ public class MsgConsumer {
      * @throws CustomizeException
      * @throws MessagingException
      */
-    @JmsListener(destination = "${queueName.message.reply}")
+    @JmsListener(destination = "${queueName.messageReply}")
     public void receiveMessageReplyMsg(ObjectMessage objectMessage) throws JMSException,
             CustomizeException,
             MessagingException {
