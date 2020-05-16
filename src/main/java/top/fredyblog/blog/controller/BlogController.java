@@ -9,6 +9,7 @@ import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.Blog;
 import top.fredyblog.blog.model.entity.BlogExample;
 import top.fredyblog.blog.model.entity.User;
+import top.fredyblog.blog.model.es.EsBlogService;
 import top.fredyblog.blog.model.pojo.TopTag;
 import top.fredyblog.blog.model.pojo.TopType;
 import top.fredyblog.blog.service.BlogService;
