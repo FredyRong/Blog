@@ -16,13 +16,13 @@ import top.fredyblog.blog.utils.ResultGenerator;
 import javax.annotation.Resource;
 
 /**
- * 公告展示
+ * 公告控制层
  * @author Fredy
- * @date 2020/5/15 11:15
+ * @date 2020/5/16 15:32
  */
-@Api("公告展示")
+@Api("公告控制层")
 @RestController
-public class AnnouncementShowController {
+public class AnnouncementController {
     @Resource
     private AnnouncementService announcementService;
 

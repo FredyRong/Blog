@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 /**
  * 留言控制层
  * @author Fredy
- * @date 2020/5/16 14:20
+ * @date 2020/5/16 15:29
  */
 @Api("留言控制层")
 @RestController
-public class MessageShowController {
+public class MessageController {
     @Resource
     private MessageService messageService;
 
@@ -73,4 +73,5 @@ public class MessageShowController {
         messageService.addMessageReply(nickname, email, content, messageId, repliedUserId, repliedUserNickname, user);
         return ResultGenerator.getSuccessResult();
     }
+
 }

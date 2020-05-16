@@ -93,7 +93,7 @@ public class AdminUserController {
      * @param id
      * @return
      */
-    @ApiOperation("封禁用户")
+    @ApiOperation("解禁用户")
     @PutMapping("/users/unBlock/{id}")
     public RestResult unBlockUser(@PathVariable Integer id){
         userService.unblockUser(id);

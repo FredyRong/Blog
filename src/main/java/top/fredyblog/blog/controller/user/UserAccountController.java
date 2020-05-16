@@ -4,11 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.fredyblog.blog.exception.CustomizeErrorCode;
 import top.fredyblog.blog.exception.CustomizeException;
 import top.fredyblog.blog.model.dto.LoginDTO;
+import top.fredyblog.blog.model.dto.RegisterDTO;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.User;
 import top.fredyblog.blog.service.UserService;
@@ -19,16 +21,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * 登录控制器
+ * 用户管理控制层
  * @author Fredy
- * @date 2020/5/14 22:28
+ * @date 2020/5/16 16:02
  */
-@Api("登录控制器")
+@Api("用户管理控制层")
 @RestController
 @RequestMapping("/user")
-public class LoginController {
+public class UserAccountController {
     @Resource
     private UserService userService;
+
+    /**
+     * 功能描述：用户注册
+     * @param registerDTO
+     * @param request
+     * @return
+     */
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public RestResult register(RegisterDTO registerDTO, HttpServletRequest request){
+        userService.register(registerDTO, request.getRemoteAddr());
+        return ResultGenerator.getSuccessResult();
+    }
 
     /**
      * 功能描述：用户登录

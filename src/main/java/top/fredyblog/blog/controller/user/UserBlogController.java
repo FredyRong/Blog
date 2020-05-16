@@ -2,7 +2,6 @@ package top.fredyblog.blog.controller.user;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import top.fredyblog.blog.model.dto.RestResult;
@@ -10,27 +9,19 @@ import top.fredyblog.blog.model.entity.Blog;
 import top.fredyblog.blog.model.entity.BlogExample;
 import top.fredyblog.blog.model.entity.User;
 import top.fredyblog.blog.service.BlogService;
-import top.fredyblog.blog.service.TagService;
-import top.fredyblog.blog.service.TypeService;
 import top.fredyblog.blog.utils.ResultGenerator;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
- * 博客管理
  * @author Fredy
- * @date 2020/5/14 22:59
+ * @date 2020/5/16 16:05
  */
-@Api("博客管理")
+@Api("用户博客控制层")
 @RestController
 @RequestMapping("/user")
-@Log4j2
-public class UserController {
-    @Resource
-    private TypeService typeService;
-    @Resource
-    private TagService tagService;
+public class UserBlogController {
     @Resource
     private BlogService blogService;
 
@@ -51,46 +42,6 @@ public class UserController {
         blogExample.createCriteria().andUserIdEqualTo(user.getUserId());
         blogExample.setOrderByClause("update_time desc");
         return ResultGenerator.getSuccessResult( blogService.page(blogExample, pageNum, pageSize,null));
-    }
-
-    /**
-     * 功能描述：获取全部类型(map)
-     * @return
-     */
-    @ApiOperation("获取全部类型(map)")
-    @GetMapping("typesMap")
-    public RestResult typesMap(){
-        return ResultGenerator.getSuccessResult(typeService.getAllTypes());
-    }
-
-    /**
-     * 功能描述：获取全部类型(list)
-     * @return
-     */
-    @ApiOperation("获取全部类型(list)")
-    @GetMapping("typesList")
-    public RestResult typesList(){
-        return ResultGenerator.getSuccessResult(typeService.getAll());
-    }
-
-    /**
-     * 功能描述：获取全部标签(map)
-     * @return
-     */
-    @ApiOperation("获取全部标签(map)")
-    @GetMapping("tagsMap")
-    public RestResult tagsMap(){
-        return ResultGenerator.getSuccessResult(tagService.getAllTags());
-    }
-
-    /**
-     * 功能描述：获取全部标签(list)
-     * @return
-     */
-    @ApiOperation("获取全部标签(list)")
-    @GetMapping("tagsList")
-    public RestResult tagsList(){
-        return ResultGenerator.getSuccessResult(tagService.getAll());
     }
 
     /**
@@ -180,11 +131,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述：获取用户博客数
+     * 功能描述：获取个人博客数
      * @param session
      * @return
      */
-    @ApiOperation("获取用户博客数")
+    @ApiOperation("获取个人博客数")
     @GetMapping("/blogCount")
     public RestResult blogCount(HttpSession session){
         User user = (User) session.getAttribute("user");

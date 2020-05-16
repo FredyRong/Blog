@@ -51,26 +51,6 @@ public class AdminTypeController {
     }
 
     /**
-     * 功能描述：获取全部类型(map)
-     * @return
-     */
-    @ApiOperation("获取全部类型(map)")
-    @GetMapping("typesMap")
-    public RestResult typesMap(){
-        return ResultGenerator.getSuccessResult(typeService.getAllTypes());
-    }
-
-    /**
-     * 功能描述：获取全部类型(list)
-     * @return
-     */
-    @ApiOperation("获取全部类型(list)")
-    @GetMapping("typesList")
-    public RestResult typesList(){
-        return ResultGenerator.getSuccessResult(typeService.getAll());
-    }
-
-    /**
      * 功能描述：类型单个查询
      * @param id
      * @return

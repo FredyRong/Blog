@@ -51,26 +51,6 @@ public class AdminTagController {
     }
 
     /**
-     * 功能描述：获取全部标签(map)
-     * @return
-     */
-    @ApiOperation("获取全部标签(map)")
-    @GetMapping("tagsMap")
-    public RestResult tagsMap(){
-        return ResultGenerator.getSuccessResult(tagService.getAllTags());
-    }
-
-    /**
-     * 功能描述：获取全部标签(list)
-     * @return
-     */
-    @ApiOperation("获取全部标签(list)")
-    @GetMapping("tagsList")
-    public RestResult tagsList(){
-        return ResultGenerator.getSuccessResult(tagService.getAll());
-    }
-
-    /**
      * 功能描述：标签单个查询
      * @param id
      * @return

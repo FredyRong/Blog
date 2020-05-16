@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
- * 回复管理控制层
+ * 回复控制层
  * @author Fredy
- * @date 2020/5/16 13:55
+ * @date 2020/5/16 15:33
  */
-@Api("回复管理控制层")
+@Api("回复控制层")
 @RestController
 public class ReplyController {
     @Resource
