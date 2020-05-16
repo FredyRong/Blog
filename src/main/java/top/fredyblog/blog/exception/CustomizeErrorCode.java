@@ -27,6 +27,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     USER_DELETE_FAILED(5003, "用户删除失败"),
     USER_UPDATE_FAILED(5004, "用户更新失败"),
     USER_INSERT_FAILED(5005, "用户插入失败"),
+    USER_REGISTER_FAILED(5006, "用户注册失败"),
     MESSAGE_NOT_FOUND(6001, "留言不存在"),
     MESSAGE_EXISTED(6002, "留言已存在"),
     MESSAGE_DELETE_FAILED(6003, "留言删除失败"),

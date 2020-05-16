@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import top.fredyblog.blog.model.dto.RestResult;
 import top.fredyblog.blog.model.entity.Blog;
 import top.fredyblog.blog.model.entity.BlogExample;
-import top.fredyblog.blog.model.entity.Type;
 import top.fredyblog.blog.model.entity.User;
 import top.fredyblog.blog.service.BlogService;
 import top.fredyblog.blog.service.TagService;
@@ -17,8 +16,6 @@ import top.fredyblog.blog.utils.ResultGenerator;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 博客管理
@@ -61,10 +58,9 @@ public class UserController {
      * @return
      */
     @ApiOperation("获取全部类型(map)")
-    @GetMapping("getTypesMap")
+    @GetMapping("typesMap")
     public RestResult typesMap(){
-        List<Type> typeList = typeService.getAll();
-        return ResultGenerator.getSuccessResult(typeList.stream().collect(Collectors.toMap(Type::getTypeId, Type::getTypeName, (key1, key2) -> key2)));
+        return ResultGenerator.getSuccessResult(typeService.getAllTypes());
     }
 
     /**
@@ -72,9 +68,19 @@ public class UserController {
      * @return
      */
     @ApiOperation("获取全部类型(list)")
-    @GetMapping("getTypesList")
+    @GetMapping("typesList")
     public RestResult typesList(){
         return ResultGenerator.getSuccessResult(typeService.getAll());
+    }
+
+    /**
+     * 功能描述：获取全部标签(map)
+     * @return
+     */
+    @ApiOperation("获取全部标签(map)")
+    @GetMapping("tagsMap")
+    public RestResult tagsMap(){
+        return ResultGenerator.getSuccessResult(tagService.getAllTags());
     }
 
     /**
@@ -82,7 +88,7 @@ public class UserController {
      * @return
      */
     @ApiOperation("获取全部标签(list)")
-    @GetMapping("getTagsList")
+    @GetMapping("tagsList")
     public RestResult tagsList(){
         return ResultGenerator.getSuccessResult(tagService.getAll());
     }

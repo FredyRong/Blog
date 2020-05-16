@@ -19,7 +19,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 管理员：标签管理
@@ -56,10 +55,9 @@ public class AdminTagController {
      * @return
      */
     @ApiOperation("获取全部标签(map)")
-    @GetMapping("getTagsMap")
+    @GetMapping("tagsMap")
     public RestResult tagsMap(){
-        List<Tag> tagList = tagService.getAll();
-        return ResultGenerator.getSuccessResult(tagList.stream().collect(Collectors.toMap(Tag::getTagId, Tag::getTagName, (key1, key2) -> key2)));
+        return ResultGenerator.getSuccessResult(tagService.getAllTags());
     }
 
     /**
@@ -67,7 +65,7 @@ public class AdminTagController {
      * @return
      */
     @ApiOperation("获取全部标签(list)")
-    @GetMapping("getTagsList")
+    @GetMapping("tagsList")
     public RestResult tagsList(){
         return ResultGenerator.getSuccessResult(tagService.getAll());
     }

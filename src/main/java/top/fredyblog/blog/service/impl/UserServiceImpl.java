@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         int n = userMapper.insert(user);
         if(n != 1){
-            throw new CustomizeException(CustomizeErrorCode.USER_INSERT_FAILED);
+            throw new CustomizeException(CustomizeErrorCode.USER_REGISTER_FAILED);
         }
     }
 

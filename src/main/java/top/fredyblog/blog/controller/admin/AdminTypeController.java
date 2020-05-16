@@ -19,7 +19,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 管理员：类型管理
@@ -56,10 +55,9 @@ public class AdminTypeController {
      * @return
      */
     @ApiOperation("获取全部类型(map)")
-    @GetMapping("getTypesMap")
+    @GetMapping("typesMap")
     public RestResult typesMap(){
-        List<Type> typeList = typeService.getAll();
-        return ResultGenerator.getSuccessResult(typeList.stream().collect(Collectors.toMap(Type::getTypeId, Type::getTypeName, (key1, key2) -> key2)));
+        return ResultGenerator.getSuccessResult(typeService.getAllTypes());
     }
 
     /**
@@ -67,7 +65,7 @@ public class AdminTypeController {
      * @return
      */
     @ApiOperation("获取全部类型(list)")
-    @GetMapping("getTypesList")
+    @GetMapping("typesList")
     public RestResult typesList(){
         return ResultGenerator.getSuccessResult(typeService.getAll());
     }
